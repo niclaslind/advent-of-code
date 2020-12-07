@@ -8,7 +8,7 @@ mod day3;
 fn main() {
     let mains = [
         day1::main,
-        // day2::main,
+        day2::main,
         day3::main,
     ];
 

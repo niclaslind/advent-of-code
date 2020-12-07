@@ -5,10 +5,11 @@ use itertools::Itertools;
 fn file_to_vec() -> Vec<u32> {
     let file_in = fs::File::open("src/input/day1.txt".to_string()).expect("Could not found file");
     let file_reader = BufReader::new(file_in);
-    let nums: Vec<u32> = file_reader.lines().into_iter().map(|l| {
-        l.ok().and_then(|s| s.parse().ok()).unwrap_or(0)
-    }).filter(|x| *x < 2020).collect();
-    nums
+    file_reader
+        .lines()
+        .map(|l| { l.ok().and_then(|s| s.parse().ok()).unwrap_or(0) })
+        .filter(|x| *x < 2020)
+        .collect()
 }
 
 fn part1() {
