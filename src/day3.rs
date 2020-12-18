@@ -1,31 +1,24 @@
-use std::io::{BufReader, BufRead};
 use std::fs;
 
 fn file_to_vec() -> Vec<String> {
-    let file_in = fs::File::open("src/input/day3.txt".to_string()).expect("Could not found file");
-    let file_reader = BufReader::new(file_in);
-    let lines: Vec<String> = file_reader.lines().into_iter().map(|l| {
-        l.unwrap()
-    }).collect();
-    lines
+    fs::read_to_string("src/input/day3.txt")
+        .expect("Could not read file")
+        .split("\n")
+        .map(|l| l.to_string())
+        .collect()
 }
 
-fn part1() {
-    let map = file_to_vec();
-
-    let hits = ride(&map, 3, 1);
-    println!("Part1 - {}", hits);
+fn part1() -> u64 {
+    ride(&file_to_vec(), 3, 1)
 }
 
-fn part2() {
+fn part2() -> u64 {
     let map = file_to_vec();
-
-    let hits = ride(&map, 3, 1) *
+    ride(&map, 3, 1) *
         ride(&map, 1, 1) *
         ride(&map, 5, 1) *
         ride(&map, 7, 1) *
-        ride(&map, 1, 2);
-    println!("Part2 - {}", hits);
+        ride(&map, 1, 2)
 }
 
 fn ride(map: &Vec<String>, right_move: usize, down_mode: usize) -> u64 {
@@ -46,6 +39,16 @@ fn ride(map: &Vec<String>, right_move: usize, down_mode: usize) -> u64 {
 }
 
 pub fn main() {
-    part1();
-    part2();
+    println!("Part1 - {}", part1());
+    println!("Part2 - {}", part2());
+}
+
+#[test]
+fn test_part1() {
+    assert_eq!(part1(), 278)
+}
+
+#[test]
+fn test_part2() {
+    assert_eq!(part2(), 9709761600)
 }

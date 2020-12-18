@@ -1,53 +1,53 @@
-use std::io::{BufReader, BufRead};
 use std::fs;
 
 fn file_to_vec() -> Vec<String> {
-    let file_in = fs::File::open("src/input/day2.txt".to_string()).expect("Could not found file");
-    let file_reader = BufReader::new(file_in);
-    file_reader
-        .lines()
-        .map(|l| l.unwrap())
+    fs::read_to_string("src/input/day2.txt")
+        .expect("Could not read file")
+        .split("\n")
+        .map(|l| l.to_string())
         .collect()
 }
 
 fn check_password_valid(s: &String) -> bool {
     let (min, max, c, password)
-        = scan_fmt!(s, "{d}-{d} {}: {}", usize, usize, char, String)
-        .unwrap();
-
+        = scan_fmt!(s, "{d}-{d} {}: {}", usize, usize, char, String).unwrap();
     let sum = password.chars().filter(|token| token == &c).count();
     sum >= min && sum <= max
 }
 
 fn check_password_valid2(s: &String) -> bool {
     let (min, max, c, password)
-        = scan_fmt!(s, "{d}-{d} {}: {}", usize, usize, char, String)
-        .unwrap();
-
+        = scan_fmt!(s, "{d}-{d} {}: {}", usize, usize, char, String).unwrap();
     let sum1 = password.chars().nth(min - 1).unwrap() == c;
     let sum2 = password.chars().nth(max - 1).unwrap() == c;
     (sum1 | sum2) ^ (sum1 & sum2)
 }
 
-fn part1() {
-    let passwords = file_to_vec();
-    let valid_passwords = passwords
+fn part1() -> usize {
+    file_to_vec()
         .iter()
         .filter(|s| check_password_valid(s))
-        .count();
-    println!("Part1 - {}", valid_passwords);
+        .count()
 }
 
-fn part2() {
-    let passwords = file_to_vec();
-    let valid_password = passwords
+fn part2() -> usize {
+    file_to_vec()
         .iter()
         .filter(|s| check_password_valid2(s))
-        .count();
-    println!("Part2 - {}", valid_password);
+        .count()
 }
 
 pub fn main() {
-    part1();
-    part2();
+    println!("Part1 - {}", part1());
+    println!("Part2 - {}", part2());
+}
+
+#[test]
+fn test_part1() {
+    assert_eq!(part1(), 614)
+}
+
+#[test]
+fn test_part2() {
+    assert_eq!(part2(), 354)
 }

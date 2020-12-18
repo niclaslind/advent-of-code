@@ -1,22 +1,20 @@
-use std::io::{BufReader, BufRead};
 use std::fs;
+use std::ops::Index;
 
 fn file_to_vec() -> Vec<String> {
-    let file_in = fs::File::open("src/input/day5.txt".to_string()).expect("Could not found file");
-    let file_reader = BufReader::new(file_in);
-    let lines: Vec<String> = file_reader.lines().into_iter().map(|l| {
-        l.unwrap()
-    }).collect();
-    lines
+    fs::read_to_string("src/input/day5.txt")
+        .expect("Could not read file")
+        .split("\n")
+        .map(|l| l.to_string())
+        .collect()
 }
 
 fn get_seat_id(code: &String) -> String {
-    let seat: String = code.chars().map(|token| match token {
+    code.chars().map(|token| match token {
         'B' | 'R' => '1',
         'F' | 'L' => '0',
         _ => token
-    }).collect();
-    seat
+    }).collect()
 }
 
 fn get_all_seats_ids() -> Vec<i32> {
@@ -31,23 +29,33 @@ fn get_all_seats_ids() -> Vec<i32> {
     seat_ids
 }
 
-fn part1() {
-    let seat_ids = get_all_seats_ids();
-    println!("Part1 - {}", seat_ids[0]);
+fn part1() -> i32 {
+    *get_all_seats_ids().index(0)
 }
 
-fn part2() {
+fn part2() -> i32 {
     let seat_ids = get_all_seats_ids();
     let min = seat_ids[seat_ids.len() - 1];
     let max = seat_ids[0];
     for i in min..(max) {
         if !seat_ids.contains(&i) {
-            println!("Part2 - {}", i);
+            return i;
         }
     }
+    0
 }
 
 pub fn main() {
-    part1();
-    part2();
+    println!("Part1 - {}", part1());
+    println!("Part2 - {}", part2());
+}
+
+#[test]
+fn test_part1() {
+    assert_eq!(part1(), 922)
+}
+
+#[test]
+fn test_part2() {
+    assert_eq!(part2(), 747)
 }
