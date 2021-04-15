@@ -3,19 +3,19 @@ use std::fs;
 fn file_to_vec() -> Vec<String> {
     fs::read_to_string("src/input/day2.txt")
         .expect("Could not read file")
-        .split("\n")
+        .split('\n')
         .map(|l| l.to_string())
         .collect()
 }
 
-fn check_password_valid(s: &String) -> bool {
+fn check_password_valid(s: &str) -> bool {
     let (min, max, c, password)
         = scan_fmt!(s, "{d}-{d} {}: {}", usize, usize, char, String).unwrap();
     let sum = password.chars().filter(|token| token == &c).count();
     sum >= min && sum <= max
 }
 
-fn check_password_valid2(s: &String) -> bool {
+fn check_password_valid2(s: &str) -> bool {
     let (min, max, c, password)
         = scan_fmt!(s, "{d}-{d} {}: {}", usize, usize, char, String).unwrap();
     let sum1 = password.chars().nth(min - 1).unwrap() == c;

@@ -1,15 +1,16 @@
 use std::fs;
 use std::ops::Index;
+use std::cmp::Reverse;
 
 fn file_to_vec() -> Vec<String> {
     fs::read_to_string("src/input/day5.txt")
         .expect("Could not read file")
-        .split("\n")
+        .split('\n')
         .map(|l| l.to_string())
         .collect()
 }
 
-fn get_seat_id(code: &String) -> String {
+fn get_seat_id(code: &str) -> String {
     code.chars().map(|token| match token {
         'B' | 'R' => '1',
         'F' | 'L' => '0',
@@ -25,7 +26,7 @@ fn get_all_seats_ids() -> Vec<i32> {
         let seat_id = i32::from_str_radix(&get_seat_id(st), 2).unwrap();
         seat_ids.push(seat_id)
     }
-    seat_ids.sort_by(|a, b| b.cmp(a));
+    seat_ids.sort_by_key(|&b| Reverse(b));
     seat_ids
 }
 

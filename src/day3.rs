@@ -3,7 +3,7 @@ use std::fs;
 fn file_to_vec() -> Vec<String> {
     fs::read_to_string("src/input/day3.txt")
         .expect("Could not read file")
-        .split("\n")
+        .split('\n')
         .map(|l| l.to_string())
         .collect()
 }
@@ -21,7 +21,7 @@ fn part2() -> u64 {
         ride(&map, 1, 2)
 }
 
-fn ride(map: &Vec<String>, right_move: usize, down_mode: usize) -> u64 {
+fn ride(map: &[String], right_move: usize, down_mode: usize) -> u64 {
     let mut current_position = 0;
     let mut trees = 0;
 
