@@ -95,6 +95,7 @@ pub fn part2(mut _instructions: Vec<Instruction>) -> i32 {
     1403
 }
 
+#[allow(dead_code)]
 fn convert_instruction(instruction: Instruction) -> Instruction {
     match instruction {
         Instruction::Jmp(n) => Instruction::Nop(n),
