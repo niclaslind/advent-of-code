@@ -3,13 +3,13 @@ use scan_fmt::scan_fmt;
 use std::collections::HashSet;
 
 #[derive(Clone, Debug, Copy)]
-enum Instruction {
+pub enum Instruction {
     Acc(i32),
     Jmp(i32),
     Nop(i32),
 }
 
-struct Commandore {
+pub struct Commandore {
     instructions: Vec<Instruction>,
     instruction_line: usize,
     acc: i32,
@@ -62,7 +62,7 @@ impl Commandore {
     }
 }
 
-fn parse_instructions(input: &str) -> Vec<Instruction> {
+pub fn parse_instructions(input: &str) -> Vec<Instruction> {
     input
         .lines()
         .map(|instruction| {
@@ -77,13 +77,13 @@ fn parse_instructions(input: &str) -> Vec<Instruction> {
         .collect()
 }
 
-fn part1(instructions: Vec<Instruction>) -> i32 {
+pub fn part1(instructions: Vec<Instruction>) -> i32 {
     let mut commandore = Commandore::new(instructions);
     commandore.run();
     commandore.acc()
 }
 
-fn part2(mut _instructions: Vec<Instruction>) -> i32 {
+pub fn part2(mut _instructions: Vec<Instruction>) -> i32 {
     // for i in 0..instructions.len() {
     // let mut instructions = instructions.clone();
     // instructions[i] = convert_instruction(instructions[i]);
@@ -108,13 +108,13 @@ mod tests {
     use crate::day8::{parse_instructions, part1, part2};
 
     #[test]
-    fn test_example1() {
+    fn test_part1() {
         let instructions = parse_instructions(include_str!("input/day8.txt"));
         assert_eq!(part1(instructions), 1446)
     }
 
     #[test]
-    fn test_example2() {
+    fn test_part2() {
         let instructions = parse_instructions(include_str!("input/day8.txt"));
         assert_eq!(part2(instructions), 1403)
     }

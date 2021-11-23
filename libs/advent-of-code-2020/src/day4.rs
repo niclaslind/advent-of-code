@@ -1,8 +1,5 @@
-use std::fs;
-
 fn file_to_vec() -> Vec<String> {
-    fs::read_to_string("src/input/day4.txt")
-        .expect("Could not read file")
+    include_str!("input/day4.txt")
         .split('\n')
         .map(|l| l.to_string())
         .collect()
@@ -18,15 +15,14 @@ fn read_fields(s: &str) -> bool {
         && s.contains("pid:")
 }
 
-fn part1() -> usize {
-    fs::read_to_string("src/input/day4.txt")
-        .expect("could not read file")
-        .split("\n\n")
+pub fn part1() -> usize {
+    include_str!("input/day4.txt")
+        .split('\n')
         .filter(|s| read_fields(s))
         .count()
 }
 
-fn part2() -> i32 {
+pub fn part2() -> i32 {
     file_to_vec();
     0
 }

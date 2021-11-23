@@ -1,18 +1,15 @@
-use std::fs;
-
 fn file_to_vec() -> Vec<String> {
-    fs::read_to_string("src/input/day3.txt")
-        .expect("Could not read file")
+    include_str!("input/day3.txt")
         .split('\n')
         .map(|l| l.to_string())
         .collect()
 }
 
-fn part1() -> u64 {
+pub fn part1() -> u64 {
     ride(&file_to_vec(), 3, 1)
 }
 
-fn part2() -> u64 {
+pub fn part2() -> u64 {
     let map = file_to_vec();
     ride(&map, 3, 1) * ride(&map, 1, 1) * ride(&map, 5, 1) * ride(&map, 7, 1) * ride(&map, 1, 2)
 }

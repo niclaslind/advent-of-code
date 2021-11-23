@@ -1,17 +1,14 @@
 use std::collections::{HashMap, HashSet};
-use std::fs;
 
-fn part1() -> usize {
-    fs::read_to_string("src/input/day6.txt")
-        .expect("Could not found file")
+pub fn part1() -> usize {
+    include_str!("input/day6.txt")
         .split("\n\n")
         .map(|x| check_where_anyone_said_yes(x))
         .sum()
 }
 
-fn part2() -> usize {
-    fs::read_to_string("src/input/day6.txt")
-        .expect("Could not found file")
+pub fn part2() -> usize {
+    include_str!("input/day6.txt")
         .split("\n\n")
         .map(|x| check_where_everyone_said_yes(x))
         .sum()
@@ -46,7 +43,7 @@ mod tests {
     fn test_part1() {
         assert_eq!(part1(), 6662)
     }
-    
+
     #[test]
     fn test_part() {
         assert_eq!(part2(), 3382)

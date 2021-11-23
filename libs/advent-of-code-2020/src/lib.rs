@@ -1,16 +1,8 @@
-#[allow(unused)]
-mod day1;
-#[allow(unused)]
-mod day2;
-#[allow(unused)]
-mod day3;
-#[allow(unused)]
-mod day4;
-#[allow(unused)]
-mod day5;
-#[allow(unused)]
-mod day6;
-#[allow(unused)]
-mod day7;
-#[allow(unused)]
-mod day8;
+pub mod day1;
+pub mod day2;
+pub mod day3;
+pub mod day4;
+pub mod day5;
+pub mod day6;
+pub mod day7;
+pub mod day8;

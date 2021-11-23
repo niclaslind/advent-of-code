@@ -1,10 +1,7 @@
-use std::fs;
-
 use scan_fmt::scan_fmt;
 
 fn file_to_vec() -> Vec<String> {
-    fs::read_to_string("src/input/day2.txt")
-        .expect("Could not read file")
+    include_str!("input/day2.txt")
         .split('\n')
         .map(|l| l.to_string())
         .collect()
@@ -25,14 +22,14 @@ fn check_password_valid2(s: &str) -> bool {
     (sum1 | sum2) ^ (sum1 & sum2)
 }
 
-fn part1() -> usize {
+pub fn part1() -> usize {
     file_to_vec()
         .iter()
         .filter(|s| check_password_valid(s))
         .count()
 }
 
-fn part2() -> usize {
+pub fn part2() -> usize {
     file_to_vec()
         .iter()
         .filter(|s| check_password_valid2(s))

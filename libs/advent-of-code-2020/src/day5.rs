@@ -1,10 +1,8 @@
 use std::cmp::Reverse;
-use std::fs;
 use std::ops::Index;
 
 fn file_to_vec() -> Vec<String> {
-    fs::read_to_string("src/input/day5.txt")
-        .expect("Could not read file")
+    include_str!("input/day5.txt")
         .split('\n')
         .map(|l| l.to_string())
         .collect()
@@ -32,11 +30,11 @@ fn get_all_seats_ids() -> Vec<i32> {
     seat_ids
 }
 
-fn part1() -> i32 {
+pub fn part1() -> i32 {
     *get_all_seats_ids().index(0)
 }
 
-fn part2() -> i32 {
+pub fn part2() -> i32 {
     let seat_ids = get_all_seats_ids();
     let min = seat_ids[seat_ids.len() - 1];
     let max = seat_ids[0];
