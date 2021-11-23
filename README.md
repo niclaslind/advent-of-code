@@ -1,2 +1,2 @@
-# AdventOfCode2020
-Solve advent of 2020 using Rust. 
+# advent-of-code
+Solutions to advent of code using Rust. 
