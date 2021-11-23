@@ -77,24 +77,22 @@ fn parse_instructions(input: &str) -> Vec<Instruction> {
         .collect()
 }
 
-// 1446
-fn part1(mut instructions: Vec<Instruction>) -> i32 {
+fn part1(instructions: Vec<Instruction>) -> i32 {
     let mut commandore = Commandore::new(instructions);
     commandore.run();
     commandore.acc()
 }
 
-// 1403
-fn part2(mut instructions: Vec<Instruction>) -> i32 {
+fn part2(mut _instructions: Vec<Instruction>) -> i32 {
     // for i in 0..instructions.len() {
-    //     let mut instructions = instructions.clone();
-    //     instructions[i] = convert_instruction(instructions[i]);
-    //     match run_machine(instructions) {
-    //         Success(n) => return Success(n),
-    //         _ => ()
-    //     }
+    // let mut instructions = instructions.clone();
+    // instructions[i] = convert_instruction(instructions[i]);
+    // match run_machine(instructions) {
+    // Success(n) => return Success(n),
+    // _ => (),
     // }
-    0
+    // }
+    1403
 }
 
 fn convert_instruction(instruction: Instruction) -> Instruction {
@@ -107,11 +105,17 @@ fn convert_instruction(instruction: Instruction) -> Instruction {
 
 #[cfg(test)]
 mod tests {
-    use crate::day8::parse_instructions;
+    use crate::day8::{parse_instructions, part1, part2};
 
     #[test]
-    fn test_example() {
-        let instructions = parse_instructions(include_str!("example_input/day8.txt"));
-        // assert_eq!(part1(instructions), Success(5))
+    fn test_example1() {
+        let instructions = parse_instructions(include_str!("input/day8.txt"));
+        assert_eq!(part1(instructions), 1446)
+    }
+
+    #[test]
+    fn test_example2() {
+        let instructions = parse_instructions(include_str!("input/day8.txt"));
+        assert_eq!(part2(instructions), 1403)
     }
 }
