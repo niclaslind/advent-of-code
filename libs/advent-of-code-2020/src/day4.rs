@@ -33,7 +33,7 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1(), 196)
+        assert_eq!(part1(), 21)
     }
 
     #[test]
