@@ -14,11 +14,7 @@ fn part1() -> u64 {
 
 fn part2() -> u64 {
     let map = file_to_vec();
-    ride(&map, 3, 1) *
-        ride(&map, 1, 1) *
-        ride(&map, 5, 1) *
-        ride(&map, 7, 1) *
-        ride(&map, 1, 2)
+    ride(&map, 3, 1) * ride(&map, 1, 1) * ride(&map, 5, 1) * ride(&map, 7, 1) * ride(&map, 1, 2)
 }
 
 fn ride(map: &[String], right_move: usize, down_mode: usize) -> u64 {
@@ -38,17 +34,17 @@ fn ride(map: &[String], right_move: usize, down_mode: usize) -> u64 {
     trees
 }
 
-pub fn main() {
-    println!("Part1 - {}", part1());
-    println!("Part2 - {}", part2());
-}
+#[cfg(test)]
+mod tests {
+    use crate::day3::{part1, part2};
 
-#[test]
-fn test_part1() {
-    assert_eq!(part1(), 278)
-}
+    #[test]
+    fn test_part1() {
+        assert_eq!(part1(), 278)
+    }
 
-#[test]
-fn test_part2() {
-    assert_eq!(part2(), 9709761600)
+    #[test]
+    fn test_part2() {
+        assert_eq!(part2(), 9709761600)
+    }
 }

@@ -1,6 +1,6 @@
+use std::cmp::Reverse;
 use std::fs;
 use std::ops::Index;
-use std::cmp::Reverse;
 
 fn file_to_vec() -> Vec<String> {
     fs::read_to_string("src/input/day5.txt")
@@ -11,11 +11,13 @@ fn file_to_vec() -> Vec<String> {
 }
 
 fn get_seat_id(code: &str) -> String {
-    code.chars().map(|token| match token {
-        'B' | 'R' => '1',
-        'F' | 'L' => '0',
-        _ => token
-    }).collect()
+    code.chars()
+        .map(|token| match token {
+            'B' | 'R' => '1',
+            'F' | 'L' => '0',
+            _ => token,
+        })
+        .collect()
 }
 
 fn get_all_seats_ids() -> Vec<i32> {
@@ -46,17 +48,17 @@ fn part2() -> i32 {
     0
 }
 
-pub fn main() {
-    println!("Part1 - {}", part1());
-    println!("Part2 - {}", part2());
-}
+#[cfg(test)]
+mod tests {
+    use crate::day5::{part1, part2};
 
-#[test]
-fn test_part1() {
-    assert_eq!(part1(), 922)
-}
+    #[test]
+    fn test_part1() {
+        assert_eq!(part1(), 922)
+    }
 
-#[test]
-fn test_part2() {
-    assert_eq!(part2(), 747)
+    #[test]
+    fn test_part2() {
+        assert_eq!(part2(), 747)
+    }
 }

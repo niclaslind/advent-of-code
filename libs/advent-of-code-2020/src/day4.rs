@@ -8,7 +8,6 @@ fn file_to_vec() -> Vec<String> {
         .collect()
 }
 
-
 fn read_fields(s: &str) -> bool {
     s.contains("byr:")
         && s.contains("iyr:")
@@ -23,9 +22,8 @@ fn part1() -> usize {
     fs::read_to_string("src/input/day4.txt")
         .expect("could not read file")
         .split("\n\n")
-        .filter(|s| {
-            read_fields(s)
-        }).count()
+        .filter(|s| read_fields(s))
+        .count()
 }
 
 fn part2() -> i32 {
@@ -33,24 +31,23 @@ fn part2() -> i32 {
     0
 }
 
-pub fn main() {
-    println!("Part1 {}", part1());
-    println!("Part2 {}", part2());
-}
+#[cfg(test)]
+mod tests {
+    use crate::day4::{part1, part2, read_fields};
 
-#[test]
-fn test_part1() {
-    assert_eq!(part1(), 196)
-}
+    #[test]
+    fn test_part1() {
+        assert_eq!(part1(), 196)
+    }
 
-#[test]
-fn test_part2() {
-    assert_eq!(part2(), 0)
-}
+    #[test]
+    fn test_part2() {
+        assert_eq!(part2(), 0)
+    }
 
-#[test]
-fn test() {
-    let input = "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
+    #[test]
+    fn test() {
+        let input = "ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
                         byr:1937 iyr:2017 cid:147 hgt:183cm
 
                         iyr:2013 ecl:amb cid:350 eyr:2023 pid:028048884
@@ -63,9 +60,9 @@ fn test() {
 
                         hcl:#cfa07d eyr:2025 pid:166559648
                         iyr:2011 ecl:brn hgt:59in"
-        .split("\n\n")
-        .filter(|s| read_fields(s))
-        .count();
-    assert_eq!(input, 2);
+            .split("\n\n")
+            .filter(|s| read_fields(s))
+            .count();
+        assert_eq!(input, 2);
+    }
 }
-

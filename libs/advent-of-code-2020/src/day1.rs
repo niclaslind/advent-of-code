@@ -1,5 +1,5 @@
-use std::{fs};
 use itertools::Itertools;
+use std::fs;
 
 fn file_to_vec() -> Vec<i32> {
     fs::read_to_string("src/input/day1.txt")
@@ -33,17 +33,17 @@ fn part2() -> i32 {
     sum
 }
 
-pub fn main() {
-    part1();
-    part2();
-}
+#[cfg(test)]
+mod tests {
+    use crate::day1::{part1, part2};
 
-#[test]
-fn test_part1() {
-    assert_eq!(part1(), 1003971)
-}
+    #[test]
+    fn test_part1() {
+        assert_eq!(part1(), 1003971)
+    }
 
-#[test]
-fn test_part2() {
-    assert_eq!(part2(), 84035952)
+    #[test]
+    fn test_part2() {
+        assert_eq!(part2(), 84035952)
+    }
 }

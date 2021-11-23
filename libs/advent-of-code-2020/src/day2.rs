@@ -39,17 +39,17 @@ fn part2() -> usize {
         .count()
 }
 
-pub fn main() {
-    println!("Part1 - {}", part1());
-    println!("Part2 - {}", part2());
-}
+#[cfg(test)]
+mod tests {
+    use crate::day2::{part1, part2};
 
-#[test]
-fn test_part1() {
-    assert_eq!(part1(), 614)
-}
+    #[test]
+    fn test_part1() {
+        assert_eq!(part1(), 614)
+    }
 
-#[test]
-fn test_part2() {
-    assert_eq!(part2(), 354)
+    #[test]
+    fn test_part2() {
+        assert_eq!(part2(), 354)
+    }
 }
