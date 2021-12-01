@@ -1,49 +1,31 @@
-pub fn part1() -> i32 {
-    let measurments = read_measurments();
+pub fn count_increasing_measurments(window_size: usize) -> usize {
+    let measurments: Vec<i32> = include_str!("input/day1.txt")
+        .lines()
+        .map(str::parse)
+        .map(Result::unwrap)
+        .collect();
 
-    measurments
-        .iter()
-        .enumerate()
-        .skip(1)
-        .filter(|(index, &value)| value > measurments[index - 1])
-        .count() as i32
-}
+    let sums: Vec<i32> = measurments
+        .windows(window_size)
+        .map(|window| window.iter().sum())
+        .collect();
 
-pub fn part2() -> i32 {
-    let measurments = read_measurments();
-
-    measurments
-        .iter()
-        .enumerate()
-        .skip(3)
-        .filter(|(index, &value)| {
-            let latest_sum =
-                measurments[index - 3] + measurments[index - 2] + measurments[index - 1];
-            let new_sum = measurments[index - 2] + measurments[index - 1] + value;
-
-            new_sum > latest_sum
-        })
-        .count() as i32
-}
-
-fn read_measurments() -> Vec<i32> {
-    include_str!("input/day1.txt")
-        .split('\n')
-        .map(|value| value.parse::<i32>().unwrap())
-        .collect::<Vec<i32>>()
+    sums.windows(2)
+        .filter(|measurments| measurments[0] < measurments[1])
+        .count()
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::day1::{part1, part2};
+    use crate::day1::count_increasing_measurments;
 
     #[test]
     fn test_part1() {
-        assert_eq!(1228, part1());
+        assert_eq!(1228, count_increasing_measurments(1));
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(1257, part2());
+        assert_eq!(1257, count_increasing_measurments(3));
     }
 }
