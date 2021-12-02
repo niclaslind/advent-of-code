@@ -1,35 +1,81 @@
-pub fn part1() -> u32 {
-    let (forward, depth) = include_str!("input/day2.txt")
-        .lines()
-        .filter_map(|s| {
-            s.split_once(" ")
-                .map(|(dir, val)| (dir, val.parse::<u32>().unwrap()))
-        })
-        .fold((0, 0), |(x, y), (dir, val)| match dir {
-            "forward" => (x + val, y),
-            "down" => (x, y + val),
-            "up" => (x, y - val),
-            _ => unreachable!(),
-        });
+use nom::{branch::alt, bytes::complete::tag, character::complete::i32, IResult};
 
-    forward * depth
+#[derive(Default, Debug)]
+struct Submarine {
+    x: i32,
+    y: i32,
+    aim: i32,
 }
 
-pub fn part2() -> u32 {
-    let (forward, depth, _) = include_str!("input/day2.txt")
-    .lines()
-    .filter_map(|s| {
-            s.split_once(" ")
-                .map(|(dir, val)| (dir, val.parse::<u32>().unwrap()))
-        })
-        .fold((0, 0, 0), |(x, y, aim), (dir, val)| match dir {
-            "forward" => (x + val, y + (aim * val), aim),
-            "down" => (x, y, aim + val),
-            "up" => (x, y, aim - val),
-            _ => unreachable!(),
-        });
+impl Submarine {
+    fn with_aim() -> Self {
+        Self { x: 0, y: 0, aim: 0 }
+    }
 
-    forward * depth
+    fn final_destination(&self) -> i32 {
+        self.x * self.y
+    }
+}
+
+enum Direction {
+    Forward(i32),
+    Up(i32),
+    Down(i32),
+}
+
+fn parse_direction(input: &str) -> IResult<&str, Direction> {
+    let (input, direction) = alt((tag("forward"), tag("up"), tag("down")))(input)?;
+
+    let (input, _) = tag(" ")(input)?;
+    let (input, value) = i32(input)?;
+
+    let result = match direction {
+        "forward" => Direction::Forward(value),
+        "up" => Direction::Up(value),
+        "down" => Direction::Down(value),
+        _ => unreachable!(),
+    };
+
+    Ok((input, result))
+}
+
+pub fn part1() -> i32 {
+    let submarine = include_str!("input/day2.txt").lines().fold(
+        Submarine::default(),
+        |mut submarine, directions| {
+            let (_, direction) = parse_direction(directions).unwrap();
+
+            match direction {
+                Direction::Forward(value) => submarine.x += value,
+                Direction::Down(value) => submarine.y += value,
+                Direction::Up(value) => submarine.y -= value,
+            };
+            submarine
+        },
+    );
+
+    submarine.final_destination()
+}
+
+pub fn part2() -> i32 {
+    let submarine = include_str!("input/day2.txt").lines().fold(
+        Submarine::with_aim(),
+        |mut submarine, directions| {
+            let (_, direction) = parse_direction(directions).unwrap();
+
+            match direction {
+                Direction::Forward(value) => {
+                    submarine.x += value;
+                    submarine.y += submarine.aim * value;
+                }
+                Direction::Down(value) => submarine.aim += value,
+                Direction::Up(value) => submarine.aim -= value,
+            };
+            submarine
+        },
+    );
+
+    submarine.final_destination()
 }
 
 #[cfg(test)]
