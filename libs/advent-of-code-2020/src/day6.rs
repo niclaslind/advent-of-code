@@ -3,14 +3,14 @@ use std::collections::{HashMap, HashSet};
 pub fn part1() -> usize {
     include_str!("input/day6.txt")
         .split("\n\n")
-        .map(|x| check_where_anyone_said_yes(x))
+        .map(check_where_anyone_said_yes)
         .sum()
 }
 
 pub fn part2() -> usize {
     include_str!("input/day6.txt")
         .split("\n\n")
-        .map(|x| check_where_everyone_said_yes(x))
+        .map(check_where_everyone_said_yes)
         .sum()
 }
 
