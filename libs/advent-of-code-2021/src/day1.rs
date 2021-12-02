@@ -69,12 +69,10 @@
 //! In this example, there are 5 sums that are larger than the previous sum.
 //!
 //! Consider sums of a three-measurement sliding window. How many sums are larger than the previous sum?
-
 pub fn count_increasing_measurments(window_size: usize) -> usize {
     let measurments: Vec<i32> = include_str!("input/day1.txt")
         .lines()
-        .map(str::parse)
-        .map(Result::unwrap)
+        .map(|val| val.parse::<i32>().unwrap())
         .collect();
 
     let sums: Vec<i32> = measurments
