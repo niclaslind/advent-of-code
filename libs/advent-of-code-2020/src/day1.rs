@@ -2,8 +2,8 @@ use itertools::Itertools;
 
 fn file_to_vec() -> Vec<i32> {
     include_str!("input/day1.txt")
-        .split_whitespace()
-        .map(|s| s.parse().unwrap_or(0))
+        .lines()
+        .map(|val| val.parse::<i32>().unwrap())
         .collect()
 }
 

@@ -2,8 +2,8 @@ use scan_fmt::scan_fmt;
 
 fn file_to_vec() -> Vec<String> {
     include_str!("input/day2.txt")
-        .split('\n')
-        .map(|l| l.to_string())
+        .lines()
+        .map(|line| line.to_string())
         .collect()
 }
 

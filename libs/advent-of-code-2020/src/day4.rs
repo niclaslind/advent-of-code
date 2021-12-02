@@ -1,7 +1,7 @@
 fn file_to_vec() -> Vec<String> {
     include_str!("input/day4.txt")
-        .split('\n')
-        .map(|l| l.to_string())
+        .lines()
+        .map(|line| line.to_string())
         .collect()
 }
 
@@ -16,10 +16,7 @@ fn read_fields(s: &str) -> bool {
 }
 
 pub fn part1() -> usize {
-    include_str!("input/day4.txt")
-        .split('\n')
-        .filter(|s| read_fields(s))
-        .count()
+    file_to_vec().iter().filter(|s| read_fields(s)).count()
 }
 
 pub fn part2() -> i32 {

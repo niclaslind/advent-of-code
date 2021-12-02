@@ -3,8 +3,8 @@ use std::ops::Index;
 
 fn file_to_vec() -> Vec<String> {
     include_str!("input/day5.txt")
-        .split('\n')
-        .map(|l| l.to_string())
+        .lines()
+        .map(|line| line.to_string())
         .collect()
 }
 
