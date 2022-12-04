@@ -33,16 +33,9 @@ fn find_rating(input: &[u32], mode: u32) -> u32 {
         }
 
         let freq = cand.iter().fold(0, |sum, bx| sum + ((bx >> bit_i) & 1));
-        let test_bit = (if freq >= (cand.len() as u32 - freq) {
-            1
-        } else {
-            0
-        }) ^ mode;
+        let test_bit = u32::from(freq >= (cand.len() as u32 - freq)) ^ mode;
 
-        cand = cand
-            .into_iter()
-            .filter(|bx| (*bx >> bit_i) & 1 == test_bit)
-            .collect();
+        cand.retain(|bx| (*bx >> bit_i) & 1 == test_bit);
     }
 
     cand[0]
